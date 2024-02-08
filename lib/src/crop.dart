@@ -509,7 +509,12 @@ class _CropEditorState extends State<_CropEditor> {
                     child: Container(
                       width: _rect.width,
                       height: _rect.height,
-                      color: Colors.transparent,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
