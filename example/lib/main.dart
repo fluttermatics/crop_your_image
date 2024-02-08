@@ -139,11 +139,13 @@ class _CropSampleState extends State<CropSample> {
                           }),
                           initialSize: 0.5,
                           maskColor: _isSumbnail ? Colors.white : null,
-                          cornerDotBuilder: (size, edgeAlignment) =>
-                              const SizedBox.shrink(),
+                          cornerDotBuilder:
+                              (double size, EdgeAlignment edgeAlignment) =>
+                                  EdgeControl(
+                            color: Colors.yellow,
+                            edgeAlignment: edgeAlignment,
+                          ),
                           interactive: true,
-                          fixArea: true,
-                          radius: 20,
                           initialAreaBuilder: (rect) {
                             return Rect.fromLTRB(
                               rect.left + 24,
@@ -153,34 +155,7 @@ class _CropSampleState extends State<CropSample> {
                             );
                           },
                         ),
-                        IgnorePointer(
-                          child: Padding(
-                            padding: const EdgeInsets.all(24),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 4, color: Colors.white),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
-                      Positioned(
-                        right: 16,
-                        bottom: 16,
-                        child: GestureDetector(
-                          onTapDown: (_) => setState(() => _isSumbnail = true),
-                          onTapUp: (_) => setState(() => _isSumbnail = false),
-                          child: CircleAvatar(
-                            backgroundColor:
-                                _isSumbnail ? Colors.blue.shade50 : Colors.blue,
-                            child: Center(
-                              child: Icon(Icons.crop_free_rounded),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   replacement: Center(
@@ -190,77 +165,6 @@ class _CropSampleState extends State<CropSample> {
                   ),
                 ),
               ),
-              if (_croppedData == null)
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.crop_7_5),
-                            onPressed: () {
-                              _isCircleUi = false;
-                              _cropController.aspectRatio = 16 / 4;
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.crop_16_9),
-                            onPressed: () {
-                              _isCircleUi = false;
-                              _cropController.aspectRatio = 16 / 9;
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.crop_5_4),
-                            onPressed: () {
-                              _isCircleUi = false;
-                              _cropController.aspectRatio = 4 / 3;
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.crop_square),
-                            onPressed: () {
-                              _isCircleUi = false;
-                              _cropController
-                                ..withCircleUi = false
-                                ..aspectRatio = 1;
-                            },
-                          ),
-                          IconButton(
-                              icon: Icon(Icons.circle),
-                              onPressed: () {
-                                _isCircleUi = true;
-                                _cropController.withCircleUi = true;
-                              }),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _isCropping = true;
-                            });
-                            _isCircleUi
-                                ? _cropController.cropCircle()
-                                : _cropController.crop();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Text('CROP IT!'),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
-                  ),
-                ),
-              const SizedBox(height: 16),
-              Text(_statusText),
-              const SizedBox(height: 16),
             ],
           ),
           replacement: const CircularProgressIndicator(),
