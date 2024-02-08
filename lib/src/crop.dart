@@ -515,7 +515,7 @@ class _CropEditorState extends State<_CropEditor> {
                         color: Colors.transparent,
                         border: Border.all(
                           color: Colors.white,
-                          width: 2,
+                          width: 1,
                         ),
                       ),
                     ),
