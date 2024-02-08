@@ -250,6 +250,8 @@ class _CropEditorState extends State<_CropEditor> {
         focalPoint: detail.localFocalPoint,
       );
     }
+
+    widget.onMoved?.call(_rect);
   }
 
   void _applyScale(
