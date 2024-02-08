@@ -491,10 +491,6 @@ class _CropEditorState extends State<_CropEditor> {
                     height: double.infinity,
                     decoration: BoxDecoration(
                       color: widget.maskColor ?? Colors.black.withOpacity(0.5),
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 1,
-                      ),
                     ),
                   ),
                 ),
@@ -515,7 +511,13 @@ class _CropEditorState extends State<_CropEditor> {
                     child: Container(
                       width: _rect.width,
                       height: _rect.height,
-                      color: Colors.transparent,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                      ),
                     ),
                   ),
                 ),
