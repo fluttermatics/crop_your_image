@@ -1,6 +1,7 @@
 part of crop_your_image;
 
 const dotTotalSize = 32.0; // fixed corner dot size.
+const double edgeLineSize = dotTotalSize / 2 + 4;
 
 typedef CornerDotBuilder = Widget Function(
     double size, EdgeAlignment edgeAlignment);
@@ -750,4 +751,198 @@ image.Image _fromByteData(Uint8List data) {
       return image.copyRotate(tempImage!, angle: -90);
   }
   return tempImage!;
+}
+
+/// Default corner line widget placed on corners to control cropping area.
+/// This Widget automaticall fits the appropriate size.
+class EdgeControl extends StatelessWidget {
+  const EdgeControl({
+    this.color = Colors.white,
+    this.edgeAlignment,
+    super.key,
+  });
+
+  /// [Color] of this widget. [Colors.white] by default.
+  final Color color;
+
+  /// Position of the current edge widget
+  final EdgeAlignment? edgeAlignment;
+
+  @override
+  Widget build(BuildContext context) => edgeAlignment == null
+      ? DotControl(color: color)
+      : Container(
+          color: Colors.transparent,
+          width: dotTotalSize,
+          height: dotTotalSize,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              if (edgeAlignment == EdgeAlignment.topLeft)
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      width: edgeLineSize,
+                      height: edgeLineSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 2,
+                            top: 2,
+                            right: 0,
+                            child: Container(
+                              height: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 2,
+                            top: 2,
+                            bottom: 0,
+                            child: Container(
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              if (edgeAlignment == EdgeAlignment.bottomLeft)
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      width: edgeLineSize,
+                      height: edgeLineSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 2,
+                            bottom: 2,
+                            right: 0,
+                            child: Container(
+                              height: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 2,
+                            top: 0,
+                            bottom: 2,
+                            child: Container(
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              if (edgeAlignment == EdgeAlignment.topRight)
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      width: edgeLineSize,
+                      height: edgeLineSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 0,
+                            top: 2,
+                            right: 2,
+                            child: Container(
+                              height: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 2,
+                            top: 2,
+                            bottom: 0,
+                            child: Container(
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              if (edgeAlignment == EdgeAlignment.bottomRight)
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: edgeLineSize,
+                      height: edgeLineSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 0,
+                            bottom: 2,
+                            right: 2,
+                            child: Container(
+                              height: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 2,
+                            top: 0,
+                            bottom: 2,
+                            child: Container(
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
 }
